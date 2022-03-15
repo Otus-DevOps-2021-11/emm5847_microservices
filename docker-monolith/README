@@ -19,4 +19,3 @@ Container создается из image
     в docker hub
 
 4. Создан файл packer_docker.json - шаблон для создания с помощью packer yandex инстанса и установки докера
-
