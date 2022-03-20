@@ -13,3 +13,23 @@
     docker run -d --network=reddit --network-alias=post_host amdocuser/post:1.0
     docker run -d --network=reddit --network-alias=comment_host amdocuser/comment:1.0
     docker run -d --network=reddit -p 9292:9292 amdocuser/ui:1.0
+
+2. Сборка ui на основе Alpine.
+   Изменения находятся в файле Dockerfile.ui, Gemfile.ui в папке src/ui
+
+    Строки:
+
+        FROM ruby:2.2
+        RUN apt-get update -qq && apt-get install -y build-essential
+
+    Заменены на:
+
+        FROM ruby:2.2-alpine
+
+        RUN apk add --no-cache --update build-base
+        RUN gem install bundler -v "1.7.3" --no-document
+
+    Размер образа заметно уменьшился:
+        REPOSITORY          TAG            IMAGE ID       CREATED             SIZE
+        amdocuser/ui        1.1            0b8e05ea3cdd   7 minutes ago       296MB
+        amdocuser/ui        1.0            9191dffc1f32   About an hour ago   754MB
