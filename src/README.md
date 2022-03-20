@@ -27,9 +27,29 @@
         FROM ruby:2.2-alpine
 
         RUN apk add --no-cache --update build-base
-        RUN gem install bundler -v "1.7.3" --no-document
+        RUN gem install bundler -v "1.17.3" --no-document
 
     Размер образа заметно уменьшился:
         REPOSITORY          TAG            IMAGE ID       CREATED             SIZE
         amdocuser/ui        1.1            0b8e05ea3cdd   7 minutes ago       296MB
         amdocuser/ui        1.0            9191dffc1f32   About an hour ago   754MB
+
+3. Сборка comment на основе Alpine.
+   Изменения находятся в файле Dockerfile.comment, Gemfile.comment в папке src/comment
+
+    Строки:
+
+        FROM ruby:2.2
+        RUN apt-get update -qq && apt-get install -y build-essential
+
+    Заменены на:
+
+        FROM ruby:2.2-alpine
+
+        RUN apk add --no-cache --update build-base
+        RUN gem install bundler -v "1.17.3" --no-document
+
+    Размер образа заметно уменьшился:
+        REPOSITORY               TAG            IMAGE ID       CREATED          SIZE
+        amdocuser/comment-test   1.1            a8ef5044b9d0   9 minutes ago    294MB
+        amdocuser/comment        1.0            6d559d374a28   2 days ago       769MB
