@@ -1,0 +1,8 @@
+1. Вывод команды docker image
+REPOSITORY              TAG       IMAGE ID       CREATED         SIZE
+test/ubuntu-tmp-files   latest    37934095460e   7 seconds ago   72.8MB
+ubuntu                  20.04     2b4cba85892a   4 days ago      72.8MB
+nginx                   latest    c919045c4c2b   6 days ago      142MB
+hello-world             latest    feb5d9fea6a5   5 months ago    13.3kB
+
+Container создается из image

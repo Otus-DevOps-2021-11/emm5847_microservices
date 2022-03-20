@@ -1,0 +1,13 @@
+---
+- name: Configure hosts & deploy application
+  hosts: app
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+  - name: Run docker container
+    docker_container:
+      name: reddit
+      image: amdocuser/otus-reddit:1.0
+      state: started
+      ports: "9292:9292"

@@ -1,0 +1,10 @@
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+lb2.tf
+main2.tf
+*.backup
+backend.tf
+

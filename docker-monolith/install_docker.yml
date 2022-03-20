@@ -1,0 +1,41 @@
+---
+- name: Install Docker
+  hosts: app
+  become: true
+  tasks:
+  - name: Install required packets
+    apt:
+      pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      update_cache: yes
+
+  - name: Download gpg key
+    get_url:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      dest: /tmp/gpg
+      mode: '777'
+
+  - name: Import gpg key
+    command: gpg --yes --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg /tmp/gpg
+    register: output
+    changed_when: output.rc == 0
+
+    #Off set -o pipefail;
+  - name: Create docker repo
+    shell: |
+      echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+      https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    register: output
+    changed_when: output.rc == 0
+
+  - name: Install required packets
+    apt:
+      pkg:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      update_cache: yes

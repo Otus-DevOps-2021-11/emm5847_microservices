@@ -1,0 +1,23 @@
+{
+    "builders": [
+        {
+            "type": "yandex",
+            "service_account_key_file": "{{user `my_service_account_key_file`}}",
+            "folder_id": "{{user `my_folder_id`}}",
+            "source_image_family": "ubuntu-1804-lts",
+            "image_name": "docker-base-{{timestamp}}",
+            "image_family": "docker-base",
+            "ssh_username": "{{user `my_user`}}",
+            "platform_id": "standard-v1",
+	          "use_ipv4_nat": "true",
+	          "subnet_id": "{{user `my_subnet_id`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "install_docker.sh",
+            "execute_command": "sudo {{.Path}}"
+        }
+    ]
+}
