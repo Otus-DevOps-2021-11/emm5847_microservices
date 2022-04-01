@@ -50,6 +50,4 @@ volumes:
 
 networks:
   front_net:
-    name: front_net
   back_net:
-    name: back_net
