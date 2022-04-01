@@ -18,8 +18,22 @@
 
 3. Создайте docker-compose.override.yml для reddit проекта
 
-Запуск puma в дебаг режиме с числом воркеров 2
-Добавим в docker-compose.override.yml
+a)Изменены параметры сервисов без создания сборки образов
+
+  post_db:
+    environment:
+      ENV_VALUE: "Hello"
+
+  post:
+    volumes:
+      - post_db:${DB_PATH}
+
+  comment:
+    container_name: comment_app
+
+б)Запуск puma в дебаг режиме с числом воркеров 2
+  Добавим в docker-compose.override.yml
+
   version: '3.3'
   services:
     comment:

@@ -5,3 +5,14 @@ services:
 
   comment:
     command: puma --debug -w 2
+
+  post_db:
+    environment:
+      ENV_VALUE: "Hello"
+
+  post:
+    volumes:
+      - post_db:${DB_PATH}
+
+  comment:
+    container_name: comment_app
