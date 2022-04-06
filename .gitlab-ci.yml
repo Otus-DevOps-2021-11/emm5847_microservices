@@ -8,6 +8,9 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
+  - pwd
+  - hostname
+  - whereis bundle
   - bundle install
   - cd reddit
 
