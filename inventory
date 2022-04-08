@@ -1,5 +1,5 @@
 [gitlab]
-gitlab-ci-vm ansible_host=51.250.64.75
+gitlab-ci-vm ansible_host=51.250.75.69
 
 [gitlab:vars]
 ansible_python_interpreter=/usr/bin/python3
