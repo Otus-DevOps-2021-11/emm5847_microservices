@@ -10,8 +10,9 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
-  - cd reddit
-  - bundle install
+  # - cd reddit
+  # - bundle install
+  - docker info
 
 build_job:
   stage: build
@@ -19,7 +20,7 @@ build_job:
     - mongo:latest
   script:
     - echo 'Building'
-    - puma -d
+#    - puma -d
 
 test_unit_job:
   stage: test
