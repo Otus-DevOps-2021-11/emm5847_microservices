@@ -12,15 +12,14 @@ variables:
 before_script:
   - cd reddit
   - bundle install
+  - docker info
 
 build_job:
   stage: build
   services:
     - mongo:latest
-    - docker:latest
   script:
     - echo 'Building'
-    - docker info
 
 test_unit_job:
   stage: test
