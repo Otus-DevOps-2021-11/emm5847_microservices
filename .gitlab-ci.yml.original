@@ -12,7 +12,6 @@ variables:
 before_script:
   - cd reddit
   - bundle install
-  - docker info
 
 build_job:
   stage: build

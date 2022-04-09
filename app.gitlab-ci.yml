@@ -1,0 +1,29 @@
+---
+image: docker:dind
+
+stages:
+  - build
+  # - test
+  # - review
+  # - stage
+  # - production
+
+before_script:
+  - docket info
+
+build_job:
+  stage: build
+  script:
+    - echo 'Building'
+
+# test_unit_job:
+#   stage: test
+#   services:
+#     - mongo:latest
+#   script:
+#     - ruby simpletest.rb
+#
+# test_integration_job:
+#   stage: test
+#   script:
+#     - echo 'Testing 2'
