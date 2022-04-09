@@ -15,9 +15,11 @@ before_script:
 
 build_job:
   stage: build
+  services:
+    - mongo:latest
   script:
     - echo 'Building'
-    - puma
+    - puma -d
 
 test_unit_job:
   stage: test
