@@ -6,8 +6,8 @@ stages:
   - stage
   - production
 
-before_script:
-  - docker pull amdocuser/otus-reddit:1.0
+services:
+  - amdocuser/otus-reddit:1.0
 
 build_job:
   stage: build
