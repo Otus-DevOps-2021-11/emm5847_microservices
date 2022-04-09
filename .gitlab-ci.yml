@@ -10,11 +10,11 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 services:
-  - docker:19.03.12-dind
+  - docker:latest
 
 before_script:
-  - cd reddit
-  - bundle install
+  # - cd reddit
+  # - bundle install
   - docker info
 
 build_job:
