@@ -10,8 +10,8 @@ variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 
 before_script:
-  - cd reddit
-  - bundle install
+  # - cd reddit
+  # - bundle install
   - docker info
 
 build_job:
