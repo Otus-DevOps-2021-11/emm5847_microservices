@@ -17,7 +17,7 @@ build_job:
 test_unit_job:
   stage: test
   script:
-    - ruby simpletest.rb
+    - echo 'Testing 1'
 
 test_integration_job:
   stage: test

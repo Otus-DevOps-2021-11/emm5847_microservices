@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  runner:
+    image: 'gitlab/gi tlab-runner:latest'
+    environment:
+      - NAME_RUNNER
+      - REGISTRATION_TOKEN
+      - IP_RUNNER
+    volumes:
+      - '/srv/gitlab-runner/config:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    restart: always
