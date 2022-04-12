@@ -1,4 +1,4 @@
----
+image: docker:dind
 stages:
   - build
   - test
@@ -6,26 +6,18 @@ stages:
   - stage
   - production
 
-variables:
-  DATABASE_URL: 'mongodb://mongo/user_posts'
-
-before_script:
-  - cd reddit
-  - bundle install
+services:
+  - amdocuser/otus-reddit:1.0
 
 build_job:
   stage: build
-  services:
-    - mongo:latest
   script:
     - echo 'Building'
 
 test_unit_job:
   stage: test
-  services:
-    - mongo:latest
   script:
-    - ruby simpletest.rb
+    - echo 'Testing 1'
 
 test_integration_job:
   stage: test
