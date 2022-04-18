@@ -51,12 +51,23 @@ services:
     networks:
       - common_net
 
-volumes:
-  prometheus_data:
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      - common_net
 
 volumes:
   post_db:
+  prometheus_data:
 
 networks:
-  front_net:
-  back_net:
+  common_net:
