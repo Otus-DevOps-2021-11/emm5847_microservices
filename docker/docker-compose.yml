@@ -39,7 +39,7 @@ services:
           - comment_host
 
   prometheus:
-          image: ${USERNAME}/prometheus:${PROMETHEUS_VERSION}
+    image: ${USERNAME}/prometheus:${PROMETHEUS_VERSION}
     ports:
       - '9090:9090'
     volumes:
