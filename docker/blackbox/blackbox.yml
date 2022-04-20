@@ -12,3 +12,6 @@ modules:
         - HTTP/2.0
     prober: http
     timeout: 15s
+  tcp_connect:
+    prober: tcp
+    timeout: 15s
