@@ -65,6 +65,26 @@ services:
     networks:
       - common_net
 
+  mongodb-exporter:
+    image: bitnami/mongodb-exporter
+    command:
+      - '--log.level=debug'
+      - '--mongodb.uri=mongodb://mongo:27017'
+      - '--collect-all'
+    ports:
+      - 9216:9216
+    networks:
+      - common_net
+
+  blackbox-exporter:
+    image:  amdocuser/blackbox-exporter
+    command:
+      - '--config.file=/config/blackbox.yml'
+    ports:
+      - 9115:9115
+    networks:
+      - common_net
+
 volumes:
   post_db:
   prometheus_data:
