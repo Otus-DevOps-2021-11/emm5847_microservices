@@ -1,5 +1,7 @@
-.PHONY: all comment ui post blackbox-exporter prometheus
-all: comment ui post blackbox-exporter prometheus
+BUILD = comment ui post blackbox-exporter prometheus
+
+.PHONY: all ${BUILD}
+all: $(BUILD)
 
 comment:
 	docker build -t ${DOCKER_USERNAME}/comment:latest comment/
