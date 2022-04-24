@@ -1,10 +1,76 @@
 ------------------------------------------------------------------------------------------
 Домашнее задание MONITORING-1
 ------------------------------------------------------------------------------------------
+1. В Prometheus добавлен мониторинг mongodb
 
-docker build -t amdocuser/prometheus prometheus/
-docker build -t amdocuser/blackbox-exporter blackbox/
-docker-compose up -d
+   docker-compose.yml:
+
+       mongodb-exporter:
+         image: bitnami/mongodb-exporter
+         command:
+           - '--log.level=debug'
+           - '--mongodb.uri=mongodb://mongo:27017'
+           - '--collect-all'
+         ports:
+           - 9216:9216
+         networks:
+           - common_net
+
+   prometheus.yml:
+
+       - job_name: 'mongo'
+         static_configs:
+           - targets:
+             - 'mongodb-exporter:9216'
+
+2. В Prometheus добавлен мониторинг сервисов с помощью blackbox-exporter
+
+   docker-compose.yml:
+
+       blackbox-exporter:
+         image:  amdocuser/blackbox-exporter
+         command:
+           - '--config.file=/config/blackbox.yml'
+         ports:
+           - 9115:9115
+         networks:
+           - common_net
+
+   prometheus.yml
+       - job_name: 'blackbox-http'
+         metrics_path: /probe
+         params:
+           module: [http_2xx]
+         static_configs:
+           - targets:
+             - http://ui:9292
+             - http://comment:9292/healthcheck
+             - http://post:5000/healthcheck
+         relabel_configs:
+           - source_labels: [__address__]
+             target_label: __param_target
+           - source_labels: [__param_target]
+             target_label: instance
+           - target_label: __address__
+             replacement: blackbox-exporter:9115
+
+       - job_name: 'blackbox-tcp'
+         metrics_path: /probe
+         params:
+           module: [tcp_connect]
+         static_configs:
+           - targets:
+             - mongo:27017
+         relabel_configs:
+           - source_labels: [__address__]
+             target_label: __param_target
+           - source_labels: [__param_target]
+             target_label: instance
+           - target_label: __address__
+             replacement: blackbox-exporter:9115
+
+3. Добавлен Makefile для автоматизации сборки образов
+
 
 ------------------------------------------------------------------------------------------
 Домашнее задание DOCKER-4
