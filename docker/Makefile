@@ -2,19 +2,19 @@
 all: comment ui post blackbox-exporter prometheus
 
 comment:
-	docker build -t amdocuser/comment:latest comment/
+	docker build -t ${DOCKER_USERNAME}/comment:latest comment/
 
 ui:
-	docker build -t amdocuser/ui:latest ui/
+	docker build -t ${DOCKER_USERNAME}/ui:latest ui/
 
 post:
-	docker build -t amdocuser/post:latest post-py/
+	docker build -t ${DOCKER_USERNAME}/post:latest post-py/
 
 blackbox-exporter:
-	docker build -t amdocuser/blackbox-exporter blackbox/
+	docker build -t ${DOCKER_USERNAME}/blackbox-exporter blackbox/
 
 prometheus:
-	docker build -t amdocuser/prometheus prometheus/
+	docker build -t ${DOCKER_USERNAME}/prometheus prometheus/
 
 docker-login:
 	docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}
