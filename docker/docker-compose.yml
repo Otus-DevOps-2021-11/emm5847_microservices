@@ -39,7 +39,7 @@ services:
           - comment_host
 
   prometheus:
-          image: ${USERNAME}/prometheus:${PROMETHEUS_VERSION}
+    image: ${USERNAME}/prometheus:${PROMETHEUS_VERSION}
     ports:
       - '9090:9090'
     volumes:
@@ -51,12 +51,43 @@ services:
     networks:
       - common_net
 
-volumes:
-  prometheus_data:
+  node-exporter:
+    image: prom/node-exporter:v0.15.2
+    user: root
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
+    networks:
+      - common_net
+
+  mongodb-exporter:
+    image: bitnami/mongodb-exporter
+    command:
+      - '--log.level=debug'
+      - '--mongodb.uri=mongodb://mongo:27017'
+      - '--collect-all'
+    ports:
+      - 9216:9216
+    networks:
+      - common_net
+
+  blackbox-exporter:
+    image:  amdocuser/blackbox-exporter
+    command:
+      - '--config.file=/config/blackbox.yml'
+    ports:
+      - 9115:9115
+    networks:
+      - common_net
 
 volumes:
   post_db:
+  prometheus_data:
 
 networks:
-  front_net:
-  back_net:
+  common_net:
