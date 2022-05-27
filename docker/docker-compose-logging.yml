@@ -1,0 +1,29 @@
+version: '3'
+services:
+  fluentd:
+    image: amdocuser/fluentd
+    volumes:
+      - ./fluentd/:/fluentd/etc
+    links:
+      - "elasticsearch"
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: kibana:7.4.0
+    links:
+      - "elasticsearch"
+    ports:
+      - "5601:5601"
